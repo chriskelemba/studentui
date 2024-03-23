@@ -51,7 +51,7 @@ const RegForm = () => {
                     </div>
                     <div className="form-group">
                         <label className="mb-1">Password</label>
-                        <input type="text" className="form-control" name="password" value={data.password} onChange={handleChange}/><br/>
+                        <input type="password" className="form-control" name="password" value={data.password} onChange={handleChange}/><br/>
                     </div>
                     <div className="form-check mt-3 text-center">
                         <button type="submit" className="btn btn-primary justify-content-center">Register</button>
