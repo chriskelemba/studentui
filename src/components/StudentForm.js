@@ -1,6 +1,8 @@
 import React , { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
 const StudentForm = () => {
     const [data, setData] = useState({
         firstName: '',
@@ -19,7 +21,7 @@ const StudentForm = () => {
         e.preventDefault();
         // Form Validation
         if (data.firstName.length === 0) {
-            toast.error("Firt name field cannot be empty", {
+            toast.error("First name field cannot be empty", {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 3000,
             });
@@ -34,7 +36,15 @@ const StudentForm = () => {
                 autoClose: 3000,
             });
         } else {
-
+            axios.post("http://localhost:4000/api/student/addStudent", data)
+            .then(res => {
+                setData([...data, res.data]);
+    
+                toast.success("New student successfully added", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                })
+            })
     }}
 
     return (
