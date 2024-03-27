@@ -16,14 +16,14 @@ function App() {
           <Route exact path="/">
             <Home/>
           </Route>
-          <Route path="/RegForm">
-            <RegForm/>
-          </Route>
           <Route path="/StudentForm">
             <StudentForm/>
           </Route>
           <Route path="/CourseForm">
             <CourseForm/>
+          </Route>
+          <Route path="/RegForm">
+            <RegForm/>
           </Route>
         </Switch>
         </div>

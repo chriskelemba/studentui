@@ -16,7 +16,7 @@ const StudentForm = () => {
             return {...prev, [name]: value}
         })
     }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         // Form Validation
@@ -38,13 +38,15 @@ const StudentForm = () => {
         } else {
             axios.post("http://localhost:4000/api/student/addStudent", data)
             .then(res => {
-                setData([...data, res.data]);
+                setData(res.data);
     
                 toast.success("New student successfully added", {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
                 })
-            })
+            }).catch (err => {
+                console.log(err)
+        })         
     }}
 
     return (
@@ -69,6 +71,24 @@ const StudentForm = () => {
                     </div>
                 </div>
             </form>
+            {/* <div className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((data, i) => (
+                        <tr key={i}>
+                            <td>{data.firstName}</td>
+                            <td>{data.lastName}</td>
+                            <td>{data.gender}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </div> */}
         </div>
     );
 }
