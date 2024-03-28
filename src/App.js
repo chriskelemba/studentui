@@ -5,6 +5,7 @@ import StudentForm from './components/StudentForm';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom/cjs/react-router-dom';
+import DisplayStudents from './components/DisplayStudents';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </Route>
           <Route path="/StudentForm">
             <StudentForm/>
+            <DisplayStudents/>
           </Route>
           <Route path="/CourseForm">
             <CourseForm/>
