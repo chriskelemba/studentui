@@ -2,6 +2,7 @@ import React , { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 const StudentForm = () => {
     const [data, setData] = useState({
@@ -71,6 +72,9 @@ const StudentForm = () => {
                     </div>
                 </div>
             </form>
+            <div className="btn btn-dark">
+                <Link to="/DisplayStudents">DisplayStudents</Link>
+            </div>
         </div>
     );
 }
