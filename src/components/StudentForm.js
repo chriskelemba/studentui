@@ -73,7 +73,7 @@ const StudentForm = () => {
                 </div>
             </form>
             <div className="btn btn-dark">
-                <Link to="/DisplayStudents">DisplayStudents</Link>
+                <Link to="/DisplayStudents">Display All Students</Link>
             </div>
         </div>
     );
