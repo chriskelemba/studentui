@@ -1,8 +1,9 @@
 import React , { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
-const RegForm = () => {
+const LoginForm = () => {
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -16,28 +17,39 @@ const RegForm = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+                
+        try {
+            const response = await axios.post("http://localhost:4000/api/reg/loginUser", formValues);
+            
+            if (response.status == 200) {
+                const { accessToken, refreshToken } = response.data;
 
-        // Form Validation
-        if (data.name.length === 0) {
-            toast.error("Name field cannot be empty", {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-            });
-        } else if (data.email.length === 0) {
-            toast.error("Email field cannot be empty", {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-            });
-        } else if (data.password.length === 0) {
-            toast.error("Password field cannot be empty", {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-            });
-        } else {
+                sessionStorage.setItem('accessToken', accessToken);
+                sessionStorage.setItem('refreshToken', refreshToken);
 
-    }}
+                LoginForm(accessToken)
+                navigate(from, { replace: true}); // Redirect to the intended route
+
+            } else if (response.status == 401) {
+                // Unauthorized error (invalid username/password)
+                // Try refreshing the token and retry login if refresh is successful
+                const newAccessToken = await refreshToken();
+
+                if (newAccessToken) {
+                    // Retry login with the new access token
+                    await handleSubmit(e);
+                } else {
+                    toast.error("Invalid Username/Password")
+                }
+            } else {
+                console.error("Authentication failed");
+            }
+        } catch(error) {
+            next(error)
+        }
+    }
 
     return (
         <div>
@@ -56,7 +68,7 @@ const RegForm = () => {
                         <input type="password" className="form-control" name="password" value={data.password} onChange={handleChange}/><br/>
                     </div>
                     <div className="form-check mt-3 text-center">
-                        <button type="submit" className="btn btn-primary justify-content-center">Register</button>
+                        <button type="submit" className="btn btn-primary justify-content-center">Login</button>
                         <ToastContainer/>
                     </div>
                 </div>
@@ -65,4 +77,4 @@ const RegForm = () => {
     );
 }
 
-export default RegForm;
+export default LoginForm;
