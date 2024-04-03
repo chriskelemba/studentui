@@ -2,7 +2,6 @@ import React , { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -18,15 +17,9 @@ const LoginForm = () => {
         })
     }
 
-    const login = (accessToken) => {
-        // Perform any necessary actions with the access token
-        console.log("Access token:", accessToken);
+    const login = () => {
+        console.log("User has logged in");
     };
-      
-    // const Navigate = (to, options) => {
-    //     const history = useHistory();
-    //     history.push(to, options);
-    // };
 
     const refreshToken = async () => {
         return "new_access_token";
@@ -62,7 +55,7 @@ const LoginForm = () => {
                     sessionStorage.setItem('refreshToken', refreshToken);
     
                     login(accessToken)
-                    // Navigate("http://localhost:3000", { replace: true}); // Redirect to the intended route
+                    // navigate(from, { replace: true}); // Redirect to the intended route
     
                 } else if (response.status === 401) {
                     // Unauthorized error (invalid username/password)
